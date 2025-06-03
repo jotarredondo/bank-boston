@@ -1,6 +1,6 @@
 package com.cl.duocuc;
 
-    public class Cliente {
+    public class Cliente implements ClienteInterface {
         private String rut;
         private String nombre;
         private String apellidoPaterno;
@@ -8,22 +8,11 @@ package com.cl.duocuc;
         private String domicilio;
         private String comuna;
         private String telefono;
-        private CuentaCorriente cuenta;
+        private Cuenta cuenta;
 
         public Cliente(String rut, String nombre, String apellidoPaterno,
                        String apellidoMaterno, String domicilio,
                        String comuna, String telefono, int numeroCuenta) {
-
-            rut = rut.trim();
-
-            if (rut.length() < 11 || rut.length() > 12) {
-                throw new IllegalArgumentException("RUT inválido. Debe tener entre 11 y 12 caracteres.");
-            }
-
-
-            if (!rut.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[\\dkK]")) {
-                throw new IllegalArgumentException("RUT inválido. Formato esperado: 12.345.678-9");
-            }
 
             this.rut = rut;
             this.nombre = nombre;
@@ -32,21 +21,92 @@ package com.cl.duocuc;
             this.domicilio = domicilio;
             this.comuna = comuna;
             this.telefono = telefono;
-            this.cuenta = new CuentaCorriente(numeroCuenta);
+            this.cuenta = setTipoCuenta(numeroCuenta);
         }
 
-        public CuentaCorriente getCuenta() {
+        private Cuenta setTipoCuenta(int numeroCuenta) {
+            if (numeroCuenta == 1) {
+                return new CuentaCorriente();
+            } else if (numeroCuenta == 2) {
+                return new CuentaAhorro();
+            } else {
+                return new CuentaCredito();
+            }
+        }
+
+        public String getRut() {
+            return rut;
+        }
+
+        public void setRut(String rut) {
+            this.rut = rut;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getApellidoMaterno() {
+            return apellidoMaterno;
+        }
+
+        public void setApellidoMaterno(String apellidoMaterno) {
+            this.apellidoMaterno = apellidoMaterno;
+        }
+
+        public String getApellidoPaterno() {
+            return apellidoPaterno;
+        }
+
+        public void setApellidoPaterno(String apellidoPaterno) {
+            this.apellidoPaterno = apellidoPaterno;
+        }
+
+        public String getComuna() {
+            return comuna;
+        }
+
+        public void setComuna(String comuna) {
+            this.comuna = comuna;
+        }
+
+        public String getDomicilio() {
+            return domicilio;
+        }
+
+        public void setDomicilio(String domicilio) {
+            this.domicilio = domicilio;
+        }
+
+        public Cuenta getCuenta() {
             return cuenta;
         }
 
-        public void verDatos() {
-            System.out.println("Rut: " + rut);
-            System.out.println("Nombre: " + nombre);
-            System.out.println("Apellido paterno: " + apellidoPaterno);
-            System.out.println("Apellido materno: " + apellidoMaterno);
-            System.out.println("Domicilio: " + domicilio);
-            System.out.println("Comuna: " + comuna);
-            System.out.println("Teléfono: " + telefono);
-            System.out.println("Cuenta Corriente:  " + cuenta.getNumero());
+        public void setCuenta(Cuenta cuenta) {
+            this.cuenta = cuenta;
+        }
+
+        public String getTelefono() {
+            return telefono;
+        }
+
+        public void setTelefono(String telefono) {
+            this.telefono = telefono;
+        }
+
+        @Override
+        public void mostrarDatos() {
+                System.out.println("Rut: " + rut);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Apellido paterno: " + apellidoPaterno);
+                System.out.println("Apellido materno: " + apellidoMaterno);
+                System.out.println("Domicilio: " + domicilio);
+                System.out.println("Comuna: " + comuna);
+                System.out.println("Teléfono: " + telefono);
+                System.out.println("Cuenta Corriente:  " + cuenta.getNumeroCuenta());
         }
     }

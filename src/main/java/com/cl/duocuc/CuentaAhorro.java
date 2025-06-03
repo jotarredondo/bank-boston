@@ -2,8 +2,10 @@ package com.cl.duocuc;
 
 import static com.cl.duocuc.Constants.*;
 
-public class CuentaCorriente extends Cuenta {
-    public CuentaCorriente() {
+public class CuentaAhorro extends Cuenta {
+
+    public CuentaAhorro() {
+        super();
     }
 
     @Override
@@ -19,13 +21,11 @@ public class CuentaCorriente extends Cuenta {
     @Override
     public void depositar(double monto) {
         super.depositar(monto);
-        System.out.println(DEPOSITO_EXITO + " " + CUENTA_CORRIENTE + ": " + getNumeroCuenta());
+        System.out.println(DEPOSITO_EXITO + " " + CUENTA_AHORRO + ": " + getNumeroCuenta());
     }
 
     @Override
     public void girar(int monto) {
         super.girar(monto);
     }
-
-
 }
